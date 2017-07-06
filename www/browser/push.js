@@ -6,6 +6,7 @@
  */
 
 var exec = cordova.require('cordova/exec');
+import firebase from 'firebase';
 
 /**
  * PushNotification constructor.
@@ -51,10 +52,10 @@ var PushNotification = function(options) {
             that.emit('notification', event.data);
         };
 
-        navigator.serviceworker.register('firebase-messaging-sw.js').then((registration) => {
+        const messaging = firebase.messaging();
+        navigator.serviceWorker.register('firebase-messaging-sw.js').then((registration) => {
           messaging.useServiceworker(registration);
         });
-
 
 /*
         navigator.serviceWorker.register('ServiceWorker.js').then(function() {
