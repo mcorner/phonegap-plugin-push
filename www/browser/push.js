@@ -6,7 +6,7 @@
  */
 
 var exec = cordova.require('cordova/exec');
-import firebase from 'firebase';
+var firebase = require('firebase');
 
 /**
  * PushNotification constructor.
