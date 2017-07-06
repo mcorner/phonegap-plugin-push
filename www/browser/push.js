@@ -51,7 +51,6 @@ var PushNotification = function(options) {
             that.emit('notification', event.data);
         };
 
-        const messaging = firebase.messaging();
         navigator.serviceWorker.register('firebase-messaging-sw.js').then((registration) => {
           return console.log(JSON.stringify(registration));
         });
