@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+//import firebase from 'firebase';
 
 //const messaging = firebase.messaging();
 
@@ -9,11 +9,14 @@ import firebase from 'firebase';
  // Give the service worker access to Firebase Messaging.
  // Note that you can only use Firebase Messaging here, other Firebase libraries
  // are not available in the service worker.
- importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
- importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
+
  // Initialize the Firebase app in the service worker by passing in the
  // messagingSenderId.
 */
+
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
+
  firebase.initializeApp({
    'messagingSenderId': '85075801930' //TBD: get this from package.json
  });
