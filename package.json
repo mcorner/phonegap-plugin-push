@@ -75,5 +75,17 @@
     "babel-plugin-add-header-comment": "^1.0.3",
     "install": "^0.8.2",
     "firebase": "3.9.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   }
 }

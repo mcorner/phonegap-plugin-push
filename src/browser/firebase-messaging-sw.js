@@ -1,5 +1,4 @@
-import firebase from 'firebase';
-
+var firebase = require('firebase');
 
 //const messaging = firebase.messaging();
 
