@@ -51,6 +51,12 @@ var PushNotification = function(options) {
             that.emit('notification', event.data);
         };
 
+        navigator.serviceworker.register('firebase-messaging-sw.js').then((registration) => {
+          messaging.useServiceworker(registration);
+        });
+
+
+/*
         navigator.serviceWorker.register('ServiceWorker.js').then(function() {
             return navigator.serviceWorker.ready;
         })
@@ -85,6 +91,7 @@ var PushNotification = function(options) {
             console.log(error);
             throw new Error('Error registering Service Worker');
         });
+*/
     } else {
         throw new Error('Service Workers are not supported on your browser.');
     }
