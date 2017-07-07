@@ -73,6 +73,10 @@ var PushNotification = function(options) {
           console.log('Error: ', err);
         });
 
+        messaging.onMessage(function(payload) {
+          console.log("Message received. ", payload);
+        });
+
 /*
         navigator.serviceWorker.register('ServiceWorker.js').then(function() {
             return navigator.serviceWorker.ready;
