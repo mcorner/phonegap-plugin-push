@@ -12,7 +12,7 @@ firebaseScript.setAttribute('src','https://www.gstatic.com/firebasejs/4.1.3/fire
 document.getElementsByTagName('head')[0].appendChild(firebaseScript);
 
 const firebaseMessagingScript = document.createElement('script');
-firebaseScript.setAttribute('src','https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js');
+firebaseMessagingScript.setAttribute('src','https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js');
 document.getElementsByTagName('head')[0].appendChild(firebaseMessagingScript);
 
 
