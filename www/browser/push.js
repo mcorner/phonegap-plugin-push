@@ -56,9 +56,16 @@ var PushNotification = function(options) {
         load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js').then(function(){
           return load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js');
         }).then(function(){
-          firebase.initializeApp({
-            'messagingSenderId': '85075801930' //TBD: get this from package.json
-          });
+          var config = {
+            apiKey: "AIzaSyAYw8IJYbbJRhG63Y9zeHUyk46j8Lolrlk",
+            authDomain: "micromobile-71c73.firebaseapp.com",
+            databaseURL: "https://micromobile-71c73.firebaseio.com",
+            projectId: "micromobile-71c73",
+            storageBucket: "",
+            messagingSenderId: "359147963530"
+          };
+
+          firebase.initializeApp(config);
           messaging = firebase.messaging();
 
           messaging.onMessage(function(payload) {
