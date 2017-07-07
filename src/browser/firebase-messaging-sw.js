@@ -14,8 +14,8 @@
  // messagingSenderId.
 */
 
-importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js');
+importScripts('firebase-app.js');
+importScripts('firebase-messaging.js');
 
  firebase.initializeApp({
    'messagingSenderId': '85075801930' //TBD: get this from package.json

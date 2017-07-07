@@ -6,6 +6,7 @@
  */
 
 var exec = cordova.require('cordova/exec');
+const firebase = require('./firebase');
 
 /**
  * PushNotification constructor.
@@ -50,9 +51,18 @@ var PushNotification = function(options) {
         channel.port1.onmessage = function(event) {
             that.emit('notification', event.data);
         };
+        const messaging = firebase.messaging();
 
-        navigator.serviceWorker.register('firebase-messaging-sw.js').then((registration) => {
-          return console.log(JSON.stringify(registration));
+        messaging.requestPermission().then(function() {
+          console.log('Notification permission granted.');
+          // TODO(developer): Retrieve an Instance ID token for use with FCM.
+          // ...
+//          return navigator.serviceWorker.register('firebase-messaging-sw.js');
+          return messaging.getToken();
+        }).then((token) => {
+          console.log(JSON.stringify(token));
+        }).catch(function(err) {
+          console.log('Error: ', err);
         });
 
 /*
