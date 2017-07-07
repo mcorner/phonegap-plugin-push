@@ -60,6 +60,11 @@ var PushNotification = function(options) {
             'messagingSenderId': '85075801930' //TBD: get this from package.json
           });
           messaging = firebase.messaging();
+
+          messaging.onMessage(function(payload) {
+            console.log("Message received. ", payload);
+          });
+
           return messaging.requestPermission();
         }).then(function() {
           console.log('Notification permission granted.');
@@ -71,10 +76,6 @@ var PushNotification = function(options) {
           console.log(JSON.stringify(token));
         }).catch(function(err) {
           console.log('Error: ', err);
-        });
-
-        messaging.onMessage(function(payload) {
-          console.log("Message received. ", payload);
         });
 
 /*
