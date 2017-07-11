@@ -84,4 +84,9 @@ messaging.setBackgroundMessageHandler(function(event) {
   return self.registration.showNotification(notificationTitle,
       notificationOptions);*/
 });
+
+self.addEventListener('message', function(event) {
+    messageChannel = event;
+});
+
 // [END background_handler]

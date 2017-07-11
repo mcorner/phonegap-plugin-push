@@ -75,6 +75,13 @@ var PushNotification = function(options) {
           // TODO(developer): Retrieve an Instance ID token for use with FCM.
           // ...
 //          return navigator.serviceWorker.register('firebase-messaging-sw.js');
+
+messaging.onMessage(function(payload) {
+  console.log("Message received. ", payload);
+  // ...
+});
+
+
           return messaging.getToken();
         }).then((token) => {
           result = { 'registrationId': token };
