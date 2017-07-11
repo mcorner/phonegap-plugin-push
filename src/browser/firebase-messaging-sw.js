@@ -71,8 +71,8 @@ messaging.setBackgroundMessageHandler(function(event) {
   return self.registration.showNotification(pushData.title, {
     body: pushData.message,
     icon: pushData.image,
-    tag: 'simple-push-demo-notification-tag'
-  })
+    tag: 'simple-push-demo-notification-tag',
+  });
 //  );
 
 

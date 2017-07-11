@@ -14,7 +14,7 @@ var load = require('./load');
  * @param {Object} options to initiate Push Notifications.
  * @return {PushNotification} instance that can be monitored and cancelled.
  */
-var serviceWorker, subscription;
+var serviceWorker, subscription, messaging;
 var PushNotification = function(options) {
     this._handlers = {
         'registration': [],
@@ -52,11 +52,20 @@ var PushNotification = function(options) {
             console.log("service worker sent message");
             that.emit('notification', event.data);
         };
-        that.emit('message', channel);
 
-        let messaging = null;
-        load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js').then(function(){
+        load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js').then(function() {
           return load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js');
+        }).then(function() {
+          return navigator.serviceWorker.register('firebase-messaging-sw.js');
+        }).then(function() {
+            return navigator.serviceWorker.ready;
+        }).then(function(reg) {
+            serviceWorker = reg;
+            return reg.pushManager.subscribe(subOptions);
+        }).then(function(sub) {
+            subscription = sub;
+            result = { 'registrationId': sub.endpoint.substring(sub.endpoint.lastIndexOf('/') + 1) };
+            that.emit('registration', result);
         }).then(function(){
           var config = {
             apiKey: "AIzaSyAYw8IJYbbJRhG63Y9zeHUyk46j8Lolrlk",
@@ -73,9 +82,6 @@ var PushNotification = function(options) {
           return messaging.requestPermission();
         }).then(function() {
           console.log('Notification permission granted.');
-          // TODO(developer): Retrieve an Instance ID token for use with FCM.
-          // ...
-//          return navigator.serviceWorker.register('firebase-messaging-sw.js');
 
           messaging.onMessage(function(event) {
             console.log("Foreground message received. ", event.data);
@@ -86,8 +92,9 @@ var PushNotification = function(options) {
         }).then((token) => {
           result = { 'registrationId': token };
           that.emit('registration', result);
+          navigator.serviceWorker.controller.postMessage(result, [channel.port2]);
 
-          console.log(JSON.stringify(token));
+          console.log("Token ", JSON.stringify(token));
         }).catch(function(err) {
           console.log('Error: ', err);
         });
