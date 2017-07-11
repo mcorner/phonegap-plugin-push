@@ -49,6 +49,7 @@ var PushNotification = function(options) {
         var result;
         var channel = new MessageChannel();
         channel.port1.onmessage = function(event) {
+            console.log("service worker sent message");
             that.emit('notification', event.data);
         };
 
@@ -68,10 +69,6 @@ var PushNotification = function(options) {
           firebase.initializeApp(config);
           messaging = firebase.messaging();
 
-          messaging.onMessage(function(payload) {
-            console.log("Message received. ", payload);
-          });
-
           return messaging.requestPermission();
         }).then(function() {
           console.log('Notification permission granted.');
@@ -80,6 +77,9 @@ var PushNotification = function(options) {
 //          return navigator.serviceWorker.register('firebase-messaging-sw.js');
           return messaging.getToken();
         }).then((token) => {
+          result = { 'registrationId': token };
+          that.emit('registration', result);
+
           console.log(JSON.stringify(token));
         }).catch(function(err) {
           console.log('Error: ', err);

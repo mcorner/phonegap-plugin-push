@@ -18,7 +18,7 @@ importScripts('https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js');
 
 firebase.initializeApp({
-   'messagingSenderId': '85075801930' //TBD: get this from package.json
+   'messagingSenderId': '85075801930' // This value seems to be required, but it doesn't matter what it is?
  });
  // Retrieve an instance of Firebase Messaging so that it can handle background
  // messages.
