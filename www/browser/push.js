@@ -96,45 +96,14 @@ var PushNotification = function(options) {
 
           console.log("Token ", JSON.stringify(token));
         }).catch(function(err) {
+
+          if (navigator.serviceWorker.controller === null) {
+            // When you first register a SW, need a page reload to handle network operations
+            window.location.reload();
+            return;
+          }
           console.log('Error: ', err);
         });
-
-/*
-        navigator.serviceWorker.register('ServiceWorker.js').then(function() {
-            return navigator.serviceWorker.ready;
-        })
-        .then(function(reg) {
-            serviceWorker = reg;
-            reg.pushManager.subscribe(subOptions).then(function(sub) {
-                subscription = sub;
-                result = { 'registrationId': sub.endpoint.substring(sub.endpoint.lastIndexOf('/') + 1) };
-                that.emit('registration', result);
-
-                // send encryption keys to push server
-                var xmlHttp = new XMLHttpRequest();
-                var xmlURL = (options.browser.pushServiceURL || 'http://push.api.phonegap.com/v1/push') + '/keys';
-                xmlHttp.open('POST', xmlURL, true);
-
-                var formData = new FormData();
-                formData.append('subscription', JSON.stringify(sub));
-
-                xmlHttp.send(formData);
-
-                navigator.serviceWorker.controller.postMessage(result, [channel.port2]);
-            }).catch(function(error) {
-                if (navigator.serviceWorker.controller === null) {
-                    // When you first register a SW, need a page reload to handle network operations
-                    window.location.reload();
-                    return;
-                }
-
-                throw new Error('Error subscribing for Push notifications.');
-            });
-        }).catch(function(error) {
-            console.log(error);
-            throw new Error('Error registering Service Worker');
-        });
-*/
     } else {
         throw new Error('Service Workers are not supported on your browser.');
     }
