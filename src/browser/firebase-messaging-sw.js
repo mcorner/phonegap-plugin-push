@@ -57,7 +57,7 @@ self.addEventListener('message', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    console.log(event);
+    console.log(event.notification);
     let url = 'http://markdcorner.com';
     event.notification.close(); // Android needs explicit close.
     event.waitUntil(
