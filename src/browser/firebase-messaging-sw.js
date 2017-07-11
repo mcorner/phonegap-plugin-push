@@ -41,7 +41,7 @@ messaging.setBackgroundMessageHandler(function(event) {
       additionalData: {}
   };
   if (event.data) {
-      obj = event.data.json();
+      obj = event.data;
   }
 
   console.log(obj);
@@ -63,15 +63,18 @@ messaging.setBackgroundMessageHandler(function(event) {
       }
   }
 
-  event.waitUntil(
-      self.registration.showNotification(pushData.title, {
-          body: pushData.message,
-          icon: pushData.image,
-          tag: 'simple-push-demo-notification-tag'
-      })
-  );
+  if (messageChannel){
+    messageChannel.ports[0].postMessage(pushData);
+  }
 
-  messageChannel.ports[0].postMessage(pushData);
+//  event.waitUntil(
+  return self.registration.showNotification(pushData.title, {
+    body: pushData.message,
+    icon: pushData.image,
+    tag: 'simple-push-demo-notification-tag'
+  })
+//  );
+
 
 
   // Customize notification here
@@ -86,6 +89,7 @@ messaging.setBackgroundMessageHandler(function(event) {
 });
 
 self.addEventListener('message', function(event) {
+    console.log("SW Received message channel");
     messageChannel = event;
 });
 

@@ -52,6 +52,7 @@ var PushNotification = function(options) {
             console.log("service worker sent message");
             that.emit('notification', event.data);
         };
+        that.emit('message', channel);
 
         let messaging = null;
         load.ploadjs('https://www.gstatic.com/firebasejs/4.1.3/firebase-app.js').then(function(){
@@ -76,11 +77,10 @@ var PushNotification = function(options) {
           // ...
 //          return navigator.serviceWorker.register('firebase-messaging-sw.js');
 
-messaging.onMessage(function(payload) {
-  console.log("Message received. ", payload);
-  // ...
-});
-
+          messaging.onMessage(function(event) {
+            console.log("Foreground message received. ", event.data);
+            that.emit('notification', event.data);
+          });
 
           return messaging.getToken();
         }).then((token) => {
