@@ -63,7 +63,6 @@
     <js-module src="www/browser/load.js" name="load">
     </js-module>
     <asset src="src/browser/firebase-messaging-sw.js" target="firebase-messaging-sw.js"/>
-    <asset src="src/browser/ServiceWorker.js" target="ServiceWorker.js"/>
     <asset src="src/browser/manifest.json" target="manifest.json"/>
   </platform>
   <platform name="ios">
