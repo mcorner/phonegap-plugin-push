@@ -48,6 +48,7 @@ messaging.setBackgroundMessageHandler(function(event) {
   return self.registration.showNotification(pushData.title, {
     body: pushData.message,
     icon: pushData.image,
+    data: pushData.additionalData,
     tag: 'simple-push-demo-notification-tag',
   });
 });
@@ -57,10 +58,10 @@ self.addEventListener('message', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    console.log("notificationclick");
-//    console.log(event.notification.tag);
-    let url = 'http://markdcorner.com';
-    event.notification.close(); // Android needs explicit close.
+  event.notification.close(); // Android needs explicit close.
+
+  if ((event.notification.data.url) && (event.notification.data.url)){
+    let url = event.notification.data.url
     event.waitUntil(
         clients.matchAll({type: 'window'}).then( windowClients => {
             // Check if there is already a window/tab open with the target URL
@@ -77,4 +78,5 @@ self.addEventListener('notificationclick', function(event) {
             }
         })
     );
+  }
 });
