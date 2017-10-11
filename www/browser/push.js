@@ -89,7 +89,7 @@ var PushNotification = function(options) {
           });
 
           return messaging.getToken();
-        }).then((token) => {
+        }).then(function(token) {
           result = { 'registrationId': token };
           that.emit('registration', result);
           navigator.serviceWorker.controller.postMessage(result, [channel.port2]);
